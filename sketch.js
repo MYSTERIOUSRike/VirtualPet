@@ -4,6 +4,9 @@
 var dog, happyDog, database, foodS, foodStock;
 var dogsprite,dogsprite1;
 var database;
+var feeddog,addfood;
+var fedTime,lastFed;
+var foodobj;
 
 function preload()
 {
@@ -13,17 +16,28 @@ function preload()
 }
 
 function setup() {
-  createCanvas(800, 1000);
+  createCanvas(1500, 1200);
   //geting the firebase database
-  database=firebase.database();
+  feeddog=createButton("feed the dog");
+  feeddog.position(700,95)
+  feeddog.mousePressed()
 
+  addfood=createButton("addfood");
+  addfood.position(800,95)
+  addfood.mousePressed(addfood                                           )
+  database=firebase.database();
+  
   //refering food
   foodStock=database.ref('Food')
   foodStock.on("value", readStock);
+dog.scale=0.5
 
+  dogsprite=createSprite(350,600,10,10);
+  dogsprite.addImage(dog);
   //writing the food stock
   writeStock(21);
   console.log("foodS in setup "+foodS);
+  
  }
 
 
@@ -32,8 +46,7 @@ function draw() {
   background(46, 139, 87);
 
   //create image sprite
-  dogsprite=createSprite(350,600,10,10);
-  dogsprite.addImage(dog);
+  
 
   //funtion to feed the dog
   if(keyWentDown(UP_ARROW)){
